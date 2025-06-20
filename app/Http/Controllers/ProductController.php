@@ -24,14 +24,15 @@ class ProductController extends Controller{
         foreach($products as $product){
             // Menyajikan item kedalam sebuah array baru agar lebih rapi
             $results[$i] = array(
-                'id'            => $products[$i]['id'],
-                'brand'         => $products[$i]['brand']['name'], // Load array relation "brand" dulu, kemudian array nama brandnya
-                'model'         => $products[$i]['model'],
-                'price'         => $products[$i]['price'],
-                'performance'   => $products[$i]['performance'],
-                'battery'       => $products[$i]['battery'],
-                'camera'        => $products[$i]['camera'],
-                'storage'       => $products[$i]['storage'],
+                'id'                => $products[$i]['id'],
+                'brand'             => $products[$i]['brand']['name'], // Load array relation "brand" dulu, kemudian array nama brandnya
+                'model'             => $products[$i]['model'],
+                'price'             => $products[$i]['price'],
+                'performance'       => $products[$i]['performance'],
+                'battery'           => $products[$i]['battery'],
+                'camera'            => $products[$i]['camera'],
+                'storage'           => $products[$i]['storage'],
+                'thumbnail_path'    => asset($products[$i]['thumbnail_path']),
             );
 
             // Loop $i array key
@@ -47,9 +48,42 @@ class ProductController extends Controller{
         return view('pages/products/index');
     }
 
-    // Proses mengambil input user kemudian redirect ke route 'product.recommendation' milik fungsi recommendation() dibawah untuk menampilkan rekomendasi
+    // Fungsi detail product
+    public function detail($id){
+        // Mengambil seluruh data product beserta brandnya
+        // Ref: Didalam model "Product" ada fungsi relasi bernama brand()
+        // Ref: Data disortir berdasarkan "id" secara descending -- Dari terbaru ke terlama
+        $products = Product::with(['brand'])->where('id', $id)->firstOrFail();
+
+        // Menyajikan item kedalam sebuah array baru agar lebih rapi
+        $results = array(
+            'id'                => $products['id'],
+            'brand'             => $products['brand']['name'], // Load array relation "brand" dulu, kemudian array nama brandnya
+            'model'             => $products['model'],
+            'price'             => $products['price'],
+            'performance'       => $products['performance'],
+            'battery'           => $products['battery'],
+            'camera'            => $products['camera'],
+            'storage'           => $products['storage'],
+            'thumbnail_path'    => asset($products['thumbnail_path']),
+        );
+
+        // Tampilkan tampilan
+        return view('pages/products/detail', [
+            // Parse data kedalam input karena tidak menggunakan ajax
+            'datas' => $results,
+        ]);
+    }
+    
+    // Fungsi rekomendasi
+    public function recommendation(){
+        // Tampilkan tampilan
+        return view('pages/products/recommendation');
+    }
+
+    // Proses mengambil input user kemudian redirect ke route 'product.ranking' milik fungsi ranking() dibawah untuk menampilkan ranking rekomendasi
     public function proccess(Request $request){
-        return redirect()->route('product.recommendation', [
+        return redirect()->route('product.ranking', [
             'price'         => $request->price,
             'performance'   => $request->performance,
             'battery'       => $request->battery,
@@ -58,8 +92,8 @@ class ProductController extends Controller{
         ]);
     }
 
-    // Fungsi rekomendasi
-    public function recommendation(Request $request){
+    // Fungsi ranking rekomendasi
+    public function ranking(Request $request){
         // Mencoba untuk menjalankan parameter query
         try{
             // Mengambil seluruh data product beserta brandnya
@@ -117,15 +151,16 @@ class ProductController extends Controller{
 
                 // Menyajikan item kedalam sebuah array baru agar lebih rapi
                 $results[$i] = array(
-                    'id'            => $products[$i]['id'],
-                    'brand'         => $products[$i]['brand']['name'], // Load array relation "brand" dulu, kemudian array nama brandnya
-                    'model'         => $products[$i]['model'],
-                    'price'         => $products[$i]['price'],
-                    'performance'   => $products[$i]['performance'],
-                    'battery'       => $products[$i]['battery'],
-                    'camera'        => $products[$i]['camera'],
-                    'storage'       => $products[$i]['storage'],
-                    'v_value'       => $vValue, // Simpan hasil masing-masing perhitungan nilai V sebagai referensi sortir rekomendasi
+                    'id'                => $products[$i]['id'],
+                    'brand'             => $products[$i]['brand']['name'], // Load array relation "brand" dulu, kemudian array nama brandnya
+                    'model'             => $products[$i]['model'],
+                    'price'             => $products[$i]['price'],
+                    'performance'       => $products[$i]['performance'],
+                    'battery'           => $products[$i]['battery'],
+                    'camera'            => $products[$i]['camera'],
+                    'storage'           => $products[$i]['storage'],
+                    'thumbnail_path'    => asset($products[$i]['thumbnail_path']),
+                    'v_value'           => $vValue, // Simpan hasil masing-masing perhitungan nilai V sebagai referensi sortir rekomendasi
                 );
 
                 // Loop $i array key
@@ -134,14 +169,11 @@ class ProductController extends Controller{
 
             // Menyortir data menggunakan multi-dimensional array berdasarkan kolom array 'v_value'
             array_multisort(array_column($results, 'v_value'), SORT_DESC, $results);
-            
-            // Tampilkan data dengan format datatable
-            if(request()->ajax()){ // Data di load menggunakan ajax oleh datatable | Di view ada kode seperti ini = "url: "{!! url()->full() !!}""
-                return DataTables::of($results)->toJson();
-            }
 
             // Tampilkan tampilan
-            return view('pages/products/recommendation');
+            return view('pages/products/ranking', [
+                'datas' => $results,
+            ]);
         }
 
         // Jika salah satu parameter kosong maka redirect kembali ke halaman index product karena perhitungan butuh seluruh parameter terisi

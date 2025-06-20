@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('battery');
             $table->unsignedBigInteger('camera');
             $table->unsignedBigInteger('storage');
+            $table->string('thumbnail_path');
         });
     }
 

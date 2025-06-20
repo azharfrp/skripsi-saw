@@ -1,5 +1,5 @@
 @extends('layouts.front')
-@section('title', 'Product')
+@section('title', 'Home')
 @section('content')
     <div class="masthead">
         <div class="container px-5">
@@ -10,6 +10,7 @@
                         <p class="lead fw-normal text-muted mb-5">Ada kata smart dalam smartphone. Jadilah orang yang smart dalam memilih smartphone.</p>
                         <div class="d-flex flex-column flex-lg-row align-items-center">
                             <a class="me-lg-3 mb-4 mb-lg-0 btn btn-info" href="{{ route('product.index') }}">Semua Produk</a>
+                            <a class="me-lg-3 mb-4 mb-lg-0 btn btn-primary" href="{{ route('product.recommendation') }}">Beri Rekomendasi</a>
                         </div>
                     </div>
                 </div>

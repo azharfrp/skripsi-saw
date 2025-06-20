@@ -23,6 +23,7 @@ class ProductSeeder extends Seeder
                 'battery' => 5000,
                 'camera' => 200,
                 'storage' => 512,
+                'thumbnail_path' => 'asset/phone/Samsung-Galaxy-S24-Ultra.jpg',
             ],
             [
                 'brand_id' => 4,
@@ -32,6 +33,7 @@ class ProductSeeder extends Seeder
                 'battery' => 5400,
                 'camera' => 200,
                 'storage' => 512,
+                'thumbnail_path' => 'asset/phone/Vivo-X100-Pro.jpg',
             ],
             [
                 'brand_id' => 11,
@@ -41,6 +43,7 @@ class ProductSeeder extends Seeder
                 'battery' => 5600,
                 'camera' => 200,
                 'storage' => 512,
+                'thumbnail_path' => 'asset/phone/Honor-Magic-6-Pro.jpg',
             ],
             [
                 'brand_id' => 3,
@@ -50,6 +53,7 @@ class ProductSeeder extends Seeder
                 'battery' => 5000,
                 'camera' => 200,
                 'storage' => 512,
+                'thumbnail_path' => 'asset/phone/Oppo-Find-X7-Ultra.jpg',
             ],
             [
                 'brand_id' => 23,
@@ -59,6 +63,7 @@ class ProductSeeder extends Seeder
                 'battery' => 5050,
                 'camera' => 200,
                 'storage' => 512,
+                'thumbnail_path' => 'asset/phone/Meizu-21-Pro.jpg',
             ],
             [
                 'brand_id' => 8,
@@ -68,6 +73,7 @@ class ProductSeeder extends Seeder
                 'battery' => 4600,
                 'camera' => 200,
                 'storage' => 512,
+                'thumbnail_path' => 'asset/phone/Motorola-Edge-40-Ultra.jpg',
             ],
             [
                 'brand_id' => 2,
@@ -77,6 +83,7 @@ class ProductSeeder extends Seeder
                 'battery' => 11200,
                 'camera' => 13,
                 'storage' => 512,
+                'thumbnail_path' => 'asset/phone/Samsung-Galaxy-Tab-S9.jpg',
             ],
             [
                 'brand_id' => 1,
@@ -86,6 +93,7 @@ class ProductSeeder extends Seeder
                 'battery' => 5000,
                 'camera' => 200,
                 'storage' => 256,
+                'thumbnail_path' => 'asset/phone/Xiaomi-14-Pro.jpg',
             ],
             [
                 'brand_id' => 7,
@@ -95,6 +103,7 @@ class ProductSeeder extends Seeder
                 'battery' => 5000,
                 'camera' => 200,
                 'storage' => 256,
+                'thumbnail_path' => 'asset/phone/Asus-Zenfone-11-Ultra.jpg',
             ],
             [
                 'brand_id' => 24,
@@ -104,6 +113,7 @@ class ProductSeeder extends Seeder
                 'battery' => 6500,
                 'camera' => 50,
                 'storage' => 512,
+                'thumbnail_path' => 'asset/phone/RedMagic-9-Pro.jpg',
             ],
         ]);
     }

@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <form method="POST">
                         <div class="input-group my-2">
-                            <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Email" />
+                            <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Username" />
                             @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
                         <div class="input-group my-2">

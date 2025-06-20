@@ -14,6 +14,9 @@ Route::prefix('/')->group(function(){
     Route::prefix('/')->name('index.')->controller(PageController::class)->group(function(){
         // Index
         Route::get('/', 'index')->name('index'); // Karena menggunakan prefix routing name, maka route name ini adalah 'index.index'
+
+        // About
+        Route::get('about', 'index')->name('about');
     });
 
     // Routing untuk AuthController di halaman depan (tidak menggunakan prefix routing name)
@@ -30,10 +33,18 @@ Route::prefix('/')->group(function(){
     Route::prefix('product')->name('product.')->controller(ProductController::class)->group(function(){
         // Index
         Route::get('/', 'index')->name('index');
-        Route::post('/', 'proccess');
+
+        // Detail
+        Route::get('detail/{id}', 'detail')->name('detail');
 
         // Recommendation
         Route::get('recommendation', 'recommendation')->name('recommendation');
+        
+        // Proccess recommendation input
+        Route::post('proccess', 'proccess')->name('proccess');
+
+        // Ranking
+        Route::get('ranking', 'ranking')->name('ranking');
     });
 });
 
