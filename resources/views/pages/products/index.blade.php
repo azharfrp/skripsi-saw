@@ -59,7 +59,7 @@
                             let url = (`{{ 'imageID' }}`).replace('imageID', row.thumbnail_path);
 
                             // Tampilkan link
-                            return `<img src="${ url }" class="img-fluid">`;
+                            return `<img src="${ url }" class="img-fluid" style="object-fit: cover;">`;
                         },
                     },
                     {

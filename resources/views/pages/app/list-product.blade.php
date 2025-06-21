@@ -40,7 +40,7 @@
                             let url = (`{{ 'imageID' }}`).replace('imageID', row.thumbnail_path);
 
                             // Tampilkan link
-                            return `<img src="${ url }" class="img-fluid">`;
+                            return `<img src="${ url }" class="img-fluid" style="object-fit: cover;">`;
                         },
                     },
                     {
@@ -91,16 +91,25 @@
                             // Link Edit
                             const editLink = ("{{ route('app.product.edit', ['id' => 'placeholder']) }}").replace('placeholder', row.id);
 
-                            // Link Delete
-                            const deleteLink = ("{{ route('app.product.delete', ['id' => 'placeholder']) }}").replace('placeholder', row.id);
-
                             return `<div class="btn-group" role="group" aria-label="Action Button">
                                 <a href="${ editLink }" class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></a>
-                                <a href="${ deleteLink }" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                                <a href="javascript:void(0)" id="btn-delete" data-id="${ row.id }" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
                             </div>`;
                         },
                     },
                 ],
+            });
+
+            // Upsert (Update or Insert)
+            $('body').on('click', '#btn-delete', function(){
+                // Get data id
+                let dataID = $(this).data('id');
+
+                // Confirm delete
+                if(confirm('Yakin menghapus data?') == true){
+                    // Delete data
+                    window.location.href = ("{{ route('app.product.delete', ['id' => 'placeholder']) }}").replace('placeholder', dataID);
+                }
             });
         });
     </script>

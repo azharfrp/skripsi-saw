@@ -16,7 +16,7 @@ Route::prefix('/')->group(function(){
         Route::get('/', 'index')->name('index'); // Karena menggunakan prefix routing name, maka route name ini adalah 'index.index'
 
         // About
-        Route::get('about', 'index')->name('about');
+        Route::get('about', 'about')->name('about');
     });
 
     // Routing untuk AuthController di halaman depan (tidak menggunakan prefix routing name)

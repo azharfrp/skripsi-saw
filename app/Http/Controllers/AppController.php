@@ -8,6 +8,7 @@ use App\Models\Product;
 
 // Load internal component
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 // Load external component
 use Yajra\DataTables\Facades\DataTables;
@@ -74,18 +75,28 @@ class AppController extends Controller{
             'battery'           => ['required', 'integer'],
             'camera'            => ['required', 'integer'],
             'storage'           => ['required', 'integer'],
-            'thumbnail_path'    => ['required', 'string'],
+            'thumbnail_path'    => ['required', 'file'],
         ]);
+
+        // Ambil thumbnail
+        $thumbnail = $request->file('thumbnail_path');
+
+        // Folder thumbnail
+        $folderThumbnail = 'asset/phone';
+
+        // Pindahkan thumbnail
+        $pathThumbnail = $thumbnail->move($folderThumbnail, $thumbnail->getClientOriginalName());
 
         // Create data baru
         Product::create([
-            'brand_id'      => $request->brand,
-            'model'         => $request->model,
-            'price'         => $request->price,
-            'performance'   => $request->performance,
-            'battery'       => $request->battery,
-            'camera'        => $request->camera,
-            'storage'       => $request->storage,
+            'brand_id'          => $request->brand,
+            'model'             => $request->model,
+            'price'             => $request->price,
+            'performance'       => $request->performance,
+            'battery'           => $request->battery,
+            'camera'            => $request->camera,
+            'storage'           => $request->storage,
+            'thumbnail_path'    => $pathThumbnail,
         ]);
 
         // Redirect jika aksi berhasil
@@ -117,11 +128,14 @@ class AppController extends Controller{
             'battery'           => ['required', 'integer'],
             'camera'            => ['required', 'integer'],
             'storage'           => ['required', 'integer'],
-            'thumbnail_path'    => ['nullable', 'string'],
+            'thumbnail_path'    => ['nullable', 'file'],
         ]);
 
+        // Cari data
+        $product = Product::find($id);
+        
         // Update data
-        Product::find($id)->update([
+        $product->update([
             'brand_id'      => $request->brand,
             'model'         => $request->model,
             'price'         => $request->price,
@@ -130,6 +144,26 @@ class AppController extends Controller{
             'camera'        => $request->camera,
             'storage'       => $request->storage,
         ]);
+
+        // Handle update jika upload thumbnail
+        if($request->hasFile('thumbnail_path')){
+            // Delete file lama menggunakan try-catch untuk handle jika filenya tidak ada
+            try{ unlink($product->thumbnail_path); } catch(\Throwable $th){}
+
+            // Ambil thumbnail
+            $thumbnail = $request->file('thumbnail_path');
+
+            // Folder thumbnail
+            $folderThumbnail = 'asset/phone';
+
+            // Pindahkan thumbnail
+            $pathThumbnail = $thumbnail->move($folderThumbnail, $thumbnail->getClientOriginalName());
+
+            // Update path thumbnail
+            $product->update([
+                'thumbnail_path' => $pathThumbnail,
+            ]);
+        }
 
         // Redirect jika aksi berhasil
         return redirect()->route('app.product.list')->with('class', 'success')->with('message', 'Berhasil mengubah detail produk.');

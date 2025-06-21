@@ -2,7 +2,7 @@
 @section('title', 'Edit Product')
 @section('content')
     <div class="card">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             <div class="card-body">
                 <div class="form-group">
                     <label>Brand Name</label>
@@ -48,7 +48,7 @@
                     <label>Foto Produk</label>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="file" class="file" name="thumbnail_path" required>
+                            <input name="thumbnail_path" type="file" class="file">
                         </div>
                     </div>
                     @error('thumbnail_path')<div class="invalid-feedback">{{ $message }}</div>@enderror

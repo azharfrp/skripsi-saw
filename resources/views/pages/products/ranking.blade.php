@@ -15,7 +15,6 @@
                                                 <div class="image-container" style="height: 350px; overflow: hidden;">
                                                     <img src="{{ $data['thumbnail_path'] }}" class="img-fluid w-100 h-100" style="object-fit: cover;">
                                                 </div>
-                                                <!-- Card body content -->
                                                 <div class="card-body">
                                                     <h5 class="card-title text-truncate">{{ $data['brand'] }} {{ $data['model'] }}</h5>
                                                     <p class="card-text">Rp. {{ number_format($data['price']) }}</p>

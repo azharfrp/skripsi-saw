@@ -21,6 +21,7 @@ class Product extends Model{
         'battery',
         'camera',
         'storage',
+        'thumbnail_path',
     ];
 
     public function brand(){
