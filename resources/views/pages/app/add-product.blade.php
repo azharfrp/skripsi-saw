@@ -44,6 +44,15 @@
                     <input name="storage" type="number" class="form-control @error('storage') is-invalid @enderror" value="{{ old('storage') }}" placeholder="Storage (GB)" required />
                     @error('storage')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
+                <div class="form-group">
+                    <label>Foto Produk</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" class="file" name="thumbnail_path" required>
+                        </div>
+                    </div>
+                    @error('thumbnail_path')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
             </div>
             <div class="card-footer">
                 <div class="input-group m-0">

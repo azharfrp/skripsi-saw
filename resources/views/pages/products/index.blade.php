@@ -52,6 +52,17 @@
                         },
                     },
                     {
+                        title: "Foto Produk",
+                        render: function(data, type, row, meta){
+                            // Karena url mengambil dari row.thumbnail_path yang tidak dapat diakses oleh php maka urlnya ditampung kedalam variable url dulu
+                            // Saat url ditampung akan menggunakan placeholder 'imageID' yang kemudian nanti diganti menjadi id data thumbnail_path productnya
+                            let url = (`{{ 'imageID' }}`).replace('imageID', row.thumbnail_path);
+
+                            // Tampilkan link
+                            return `<img src="${ url }" class="img-fluid">`;
+                        },
+                    },
+                    {
                         title: "Brand",
                         data: "brand",
                     },

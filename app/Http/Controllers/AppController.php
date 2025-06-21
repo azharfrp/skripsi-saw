@@ -29,14 +29,15 @@ class AppController extends Controller{
         foreach($products as $product){
             // Menyajikan item kedalam sebuah array baru agar lebih rapi
             $results[$i] = array(
-                'id'            => $products[$i]['id'],
-                'brand'         => $products[$i]['brand']['name'], // Load array relation "brand" dulu, kemudian array nama brandnya
-                'model'         => $products[$i]['model'],
-                'price'         => $products[$i]['price'],
-                'performance'   => $products[$i]['performance'],
-                'battery'       => $products[$i]['battery'],
-                'camera'        => $products[$i]['camera'],
-                'storage'       => $products[$i]['storage'],
+                'id'                => $products[$i]['id'],
+                'brand'             => $products[$i]['brand']['name'], // Load array relation "brand" dulu, kemudian array nama brandnya
+                'model'             => $products[$i]['model'],
+                'price'             => $products[$i]['price'],
+                'performance'       => $products[$i]['performance'],
+                'battery'           => $products[$i]['battery'],
+                'camera'            => $products[$i]['camera'],
+                'storage'           => $products[$i]['storage'],
+                'thumbnail_path'    => asset($products[$i]['thumbnail_path']),
             );
 
             // Loop $i array key
@@ -66,13 +67,14 @@ class AppController extends Controller{
     public function productAddPost(Request $request){
         // Validasi input
         $request->validate([
-            'brand'         => ['required', 'integer'],
-            'model'         => ['required', 'string'],
-            'price'         => ['required', 'integer'],
-            'performance'   => ['required', 'integer'],
-            'battery'       => ['required', 'integer'],
-            'camera'        => ['required', 'integer'],
-            'storage'       => ['required', 'integer'],
+            'brand'             => ['required', 'integer'],
+            'model'             => ['required', 'string'],
+            'price'             => ['required', 'integer'],
+            'performance'       => ['required', 'integer'],
+            'battery'           => ['required', 'integer'],
+            'camera'            => ['required', 'integer'],
+            'storage'           => ['required', 'integer'],
+            'thumbnail_path'    => ['required', 'string'],
         ]);
 
         // Create data baru
@@ -108,13 +110,14 @@ class AppController extends Controller{
     public function productEditPost(Request $request, $id){
         // Validasi input
         $request->validate([
-            'brand'         => ['required', 'integer'],
-            'model'         => ['required', 'string'],
-            'price'         => ['required', 'integer'],
-            'performance'   => ['required', 'integer'],
-            'battery'       => ['required', 'integer'],
-            'camera'        => ['required', 'integer'],
-            'storage'       => ['required', 'integer'],
+            'brand'             => ['required', 'integer'],
+            'model'             => ['required', 'string'],
+            'price'             => ['required', 'integer'],
+            'performance'       => ['required', 'integer'],
+            'battery'           => ['required', 'integer'],
+            'camera'            => ['required', 'integer'],
+            'storage'           => ['required', 'integer'],
+            'thumbnail_path'    => ['nullable', 'string'],
         ]);
 
         // Update data

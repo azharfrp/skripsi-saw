@@ -9,21 +9,7 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table id="table" class="table table-bordered table-hover" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Brand</th>
-                            <th>Model</th>
-                            <th>Price</th>
-                            <th>Performance</th>
-                            <th>Battery</th>
-                            <th>Camera</th>
-                            <th>Storage</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                </table>
+                <table id="table" class="table table-bordered table-hover" style="width:100%"></table>
             </div>
         </div>
     </div>
@@ -41,41 +27,60 @@
                 },
                 columns: [
                     {
+                        title: "No",
                         render: function(data, type, row, meta){
                             return `${ meta.row + meta.settings._iDisplayStart + 1 }`;
                         },
                     },
                     {
+                        title: "Foto Produk",
+                        render: function(data, type, row, meta){
+                            // Karena url mengambil dari row.thumbnail_path yang tidak dapat diakses oleh php maka urlnya ditampung kedalam variable url dulu
+                            // Saat url ditampung akan menggunakan placeholder 'imageID' yang kemudian nanti diganti menjadi id data thumbnail_path productnya
+                            let url = (`{{ 'imageID' }}`).replace('imageID', row.thumbnail_path);
+
+                            // Tampilkan link
+                            return `<img src="${ url }" class="img-fluid">`;
+                        },
+                    },
+                    {
+                        title: "Brand",
                         data: "brand",
                     },
                     {
+                        title: "Model",
                         data: "model",
                     },
                     {
+                        title: "Price",
                         data: "price",
                         render: function(data, type, row){
                             return `IDR ${ row.price.toLocaleString() }`;
                         },
                     },
                     {
+                        title: "Performance",
                         data: "performance",
                         render: function(data, type, row){
                             return `${ row.performance.toLocaleString() }`;
                         },
                     },
                     {
+                        title: "Battery",
                         data: "battery",
                         render: function(data, type, row){
                             return `${ row.battery.toLocaleString() } mAH`;
                         },
                     },
                     {
+                        title: "Camera",
                         data: "camera",
                         render: function(data, type, row){
                             return `${ row.camera.toLocaleString() } MP`;
                         },
                     },
                     {
+                        title: "Storage",
                         data: "storage",
                         render: function(data, type, row){
                             return `${ row.storage.toLocaleString() } GB`;
